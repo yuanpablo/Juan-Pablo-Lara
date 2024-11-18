@@ -1,5 +1,6 @@
 consulta #1
 ```sql
+π countrycode(σ IsOfficial= ′ T ′(CountryLanguage))
 #Encuentra los países que tienen un idioma oficial.
 select distinct countrycode
 from countrylenguage
@@ -8,6 +9,7 @@ where IsOfficial = 'T';
 ![](./imagenes/numero1.png?raw=true)
 consulta #2
 ```sql
+countrycode,COUNT(∗),ALL (σ IsOfficial= ′ T ′(CountryLanguage)) ∩ σ COUNT(∗)>1
 #Lista los países que tienen más de un idioma oficial.
 Select*from countrylenguage
 where IsOfficial= 'T'
