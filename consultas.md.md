@@ -1,5 +1,6 @@
 consulta #1
 ```sql
+#Encuentra los países que tienen un idioma oficial.
 select * from countrylenguage;
 select distinct countrycode
 from countrylenguage
@@ -7,6 +8,7 @@ where IsOfficial = 'T';
 ```
 consulta #2
 ```sql
+#Lista los países que tienen más de un idioma oficial.
 from countrylenguage
 where IsOfficial= 'T'
 group by countrycode
@@ -15,6 +17,7 @@ having count(*)>1;
 
 consulta #3
 ```sql
+# Encuentra los países que tienen el mismo continente que Japón.
 SELECT c.Name
 FROM Country c
 JOIN CountryLanguage cl ON c.Code = cl.CountryCode
@@ -26,6 +29,7 @@ WHERE c.Continent = (
 ```
 consulta #4
 ```sql
+#Encuentra las ciudades que tienen población mayor a 5 millones y están en América del Sur.
 SELECT ci.Name
 FROM City ci
 JOIN Country co ON ci.CountryCode = co.Code
@@ -35,6 +39,7 @@ WHERE ci.Population > 5000000
 
 consulta #5
 ```sql
+#Encuentra los países que no tienen ningún idioma oficial.
 SELECT c.Code
 FROM Country c
 WHERE c.Code NOT IN (
@@ -45,6 +50,7 @@ WHERE c.Code NOT IN (
 ```
 consulta #6
 ```sql
+#Encuentra los idiomas que son oficiales en al menos dos países.
 SELECT cl.Language
 FROM CountryLanguage cl
 WHERE cl.IsOfficial = 'T'
@@ -54,6 +60,7 @@ HAVING COUNT(DISTINCT cl.CountryCode) >= 2;
 
 consulta #7
 ```sql
+# Lista los países y su capital.
 SELECT c.Name AS CountryName, ci.Name AS CapitalName
 FROM Country c
 JOIN City ci ON c.Capital = ci.ID;
@@ -61,6 +68,7 @@ JOIN City ci ON c.Capital = ci.ID;
 
 consulta #8
 ```sql
+#Encuentra los países que tienen una población mayor que Alemania.
 SELECT c.Name
 FROM Country c
 WHERE c.Population > (
@@ -72,6 +80,7 @@ WHERE c.Population > (
 
 consulta #9
 ```sql
+#Encuentra los idiomas oficiales de Europa.
 SELECT DISTINCT cl.Language
 FROM Country c
 JOIN CountryLanguage cl ON c.Code = cl.CountryCode
@@ -80,6 +89,7 @@ WHERE c.Continent = 'Europe' AND cl.IsOfficial = 'T';
 
 consulta #10
 ```sql
+# Encuentra los países sin ciudades registradas en la tabla City.
 SELECT c.Code
 FROM Country c
 WHERE c.Code NOT IN (
@@ -90,6 +100,7 @@ WHERE c.Code NOT IN (
 
 consulta #11
 ```sql
+#Muestra la población total de cada continente.
 SELECT Continent, SUM(Population) AS TotalPopulation
 FROM Country
 GROUP BY Continent;
@@ -97,6 +108,7 @@ GROUP BY Continent;
 
 consulta #12
 ```sql
+# Encuentra los países en los que la esperanza de vida es menor al promedio global.
 SELECT Name
 FROM Country
 WHERE LifeExpectancy < (
@@ -107,6 +119,7 @@ WHERE LifeExpectancy < (
 
 consulta #13
 ```sql
+#Encuentra los países en Asia sin idioma oficial registrado.
 SELECT c.Code
 FROM Country c
 WHERE c.Continent = 'Asia'
@@ -119,6 +132,7 @@ AND c.Code NOT IN (
 
 consulta #14
 ```sql
+#Lista los idiomas que son oficiales en países con esperanza de vida mayor a 80.
 SELECT DISTINCT cl.Language
 FROM Country c
 JOIN CountryLanguage cl ON c.Code = cl.CountryCode
@@ -127,6 +141,7 @@ WHERE c.LifeExpectancy > 80 AND cl.IsOfficial = 'T';
 
 consulta #15
 ```sql
+#Encuentra los países con más de 10 ciudades en la tabla City.
 SELECT CountryCode
 FROM City
 GROUP BY CountryCode
