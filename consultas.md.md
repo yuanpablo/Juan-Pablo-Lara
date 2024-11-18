@@ -1,7 +1,6 @@
 consulta #1
 ```sql
 #Encuentra los países que tienen un idioma oficial.
-select * from countrylenguage;
 select distinct countrycode
 from countrylenguage
 where IsOfficial = 'T'; 
@@ -9,7 +8,7 @@ where IsOfficial = 'T';
 consulta #2
 ```sql
 #Lista los países que tienen más de un idioma oficial.
-from countrylenguage
+Select*from countrylenguage
 where IsOfficial= 'T'
 group by countrycode
 having count(*)>1;
