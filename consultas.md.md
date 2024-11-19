@@ -169,7 +169,7 @@ HAVING COUNT(*) > 10;
 ![](./imagenes/numero15.png?raw=true)
 consulta #16
 ```sql
-
+π Name(σ Population>50000000(Country))
 #Qué países tienen una población mayor a 50 millones
 SELECT Name 
 FROM Country 
@@ -178,6 +178,7 @@ WHERE Population > 50000000;
 ![](./imagenes/numero16.png?raw=true)
 consulta #17
 ```sql
+π Name(σ Population>1000000(City))
 #Qué ciudades tienen una población mayor a 1 millón
 SELECT Name 
 FROM City 
@@ -186,6 +187,7 @@ WHERE Population > 1000000;
 ![](./imagenes/numero17.png?raw=true)
 consulta #18
 ```sql
+π Language(σ Percentage>50(CountryLanguage))
 # Qué idiomas se hablan en más del 50% de la población de su país
 SELECT Language 
 FROM CountryLanguage 
@@ -194,6 +196,7 @@ WHERE Percentage > 50;
 ![](./imagenes/numero18.png?raw=true)
 consulta #19
 ```sql
+𝜋𝑁𝑎𝑚𝑒(𝜎𝐿𝑖𝑓𝑒𝐸𝑥𝑝𝑒𝑐𝑡𝑎𝑛𝑐𝑦>75(Country))π Name (σ LifeExpectancy>75 (Country))
 #Qué países tienen una expectativa de vida mayor a 75 años
 SELECT Name 
 FROM Country 
@@ -202,6 +205,7 @@ WHERE LifeExpectancy > 75;
 ![](./imagenes/numero19.png?raw=true)
 consulta #20
 ```sql
+π City.Name(City⋈ City.ID=Country.CapitalCountry)
 #Qué ciudades son capitales
 SELECT City.Name 
 FROM City 
@@ -210,6 +214,7 @@ JOIN Country ON City.ID = Country.Capital;
 ![](./imagenes/numero20.png?raw=true)
 consulta #21
 ```sql
+π CountryCode(γ CountryCode,COUNT(∗)(City)∩σ COUNT(∗)>5 )
 #Qué países tienen más de 5 ciudades registradas en la base de datos
 SELECT CountryCode, COUNT(*) AS CityCount 
 FROM City 
@@ -219,6 +224,7 @@ HAVING CityCount > 5;
 ![](./imagenes/numero21.png?raw=true)
 consulta #22
 ```sql
+γ CountryCode,MAX(Population),ALL(City)
 #Cuál es la ciudad más poblada de cada país
 SELECT CountryCode, Name, MAX(Population) AS MaxPopulation 
 FROM City 
@@ -227,6 +233,7 @@ GROUP BY CountryCode;
 ![](./imagenes/numero22.png?raw=true)
 consulta #23
 ```sql
+π Name(σ GNP>1000000(Country))
 #Qué países tienen un producto interno bruto mayor a 1 billón
 SELECT Name 
 FROM Country 
@@ -235,6 +242,7 @@ WHERE GNP > 1000000;
 ![](./imagenes/numero23.png?raw=true)
 consulta #24
 ```sql
+π Language(σ Population>100000000(Country⋈ Code=CountryCode CountryLanguage))
 # Qué idiomas se hablan en los países con más de 100 millones de habitantes
 SELECT DISTINCT CountryLanguage.Language 
 FROM CountryLanguage 
@@ -244,6 +252,7 @@ WHERE Country.Population > 100000000;
 ![](./imagenes/numero24.png?raw=true)
 consulta #25
 ```sql
+π CountryCode(γ CountryCode,SUM(Population)(City)∩σ SUM(Population)>10000000)
 # Qué países tienen ciudades que suman más de 10 millones de habitantes en total
 SELECT CountryCode, SUM(Population) AS TotalPopulation 
 FROM City 
