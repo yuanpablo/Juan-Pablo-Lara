@@ -19,6 +19,8 @@ having count(*)>1;
 ![](./imagenes/numero2.png?raw=true)
 consulta #3
 ```sql
+π c.Name(σ 
+c.Continent=π Continent(σ Name= ′Japan ′(Country))(Country⋈ c.Code=cl.CountryCodeCountryLanguage))
 # Encuentra los países que tienen el mismo continente que Japón.
 SELECT c.Name
 FROM Country c
@@ -32,6 +34,7 @@ WHERE c.Continent = (
 ![](./imagenes/numero3.png?raw=true)
 consulta #4
 ```sql
+π ci.Name(σ ci.Population>5000000∧co.Continent= ′ SouthAmerica ′ (City⋈ ci.CountryCode=co.CodeCountry))
 #Encuentra las ciudades que tienen población mayor a 5 millones y están en América del Sur.
 SELECT ci.Name
 FROM City ci
@@ -42,6 +45,8 @@ WHERE ci.Population > 5000000
 ![](./imagenes/numero4.png?raw=true)
 consulta #5
 ```sql
+π c.Code(Country)−π cl.CountryCode(σ IsOfficial= ′T ′(CountryLanguage))
+
 #Encuentra los países que no tienen ningún idioma oficial.
 SELECT c.Code
 FROM Country c
@@ -54,6 +59,7 @@ WHERE c.Code NOT IN (
 ![](./imagenes/nuemro5.png?raw=true)
 consulta #6
 ```sql
+π Language(γ Language(σ IsOfficial= ′ T ′(CountryLanguage)))∩σ COUNT(DISTINCT CountryCode)≥2
 #Encuentra los idiomas que son oficiales en al menos dos países.
 SELECT cl.Language
 FROM CountryLanguage cl
@@ -64,6 +70,7 @@ HAVING COUNT(DISTINCT cl.CountryCode) >= 2;
 ![](./imagenes/numero6.png?raw=true)
 consulta #7
 ```sql
+π c.Name,ci.Name(Country⋈ c.Capital=ci.IDCity)
 # Lista los países y su capital.
 SELECT c.Name AS CountryName, ci.Name AS CapitalName
 FROM Country c
@@ -72,6 +79,7 @@ JOIN City ci ON c.Capital = ci.ID;
 ![](./imagenes/numero7.png?raw=true)
 consulta #8
 ```sql
+π Name(σ Population>π Population(σ Name= ′ Germany ′(Country))(Country))
 #Encuentra los países que tienen una población mayor que Alemania.
 SELECT c.Name
 FROM Country c
@@ -84,6 +92,7 @@ WHERE c.Population > (
 ![](./imagenes/numero8.png?raw=true)
 consulta #9
 ```sql
+πLanguage(σCountry.Continent=′Europe′(Country⋈CountryLanguage))
 #Encuentra los idiomas oficiales de Europa.
 SELECT DISTINCT cl.Language
 FROM Country c
@@ -93,6 +102,7 @@ WHERE c.Continent = 'Europe' AND cl.IsOfficial = 'T';
 ![](./imagenes/numero9.png?raw=true)
 consulta #10
 ```sql
+πCountry.Code(Country)−πCountryCode(City)
 # Encuentra los países sin ciudades registradas en la tabla City.
 SELECT c.Code
 FROM Country c
@@ -104,6 +114,7 @@ WHERE c.Code NOT IN (
 ![](./imagenes/numero10.png?raw=true)
 consulta #11
 ```sql
+πContinent,SUM(Population)(Country GROUP BY Continent)
 #Muestra la población total de cada continente.
 SELECT Continent, SUM(Population) AS TotalPopulation
 FROM Country
@@ -112,6 +123,7 @@ GROUP BY Continent;
 ![](./imagenes/numero11.png?raw=true)
 consulta #12
 ```sql
+πName(σLifeExpectancy<AVG(LifeExpectancy)(Country))
 # Encuentra los países en los que la esperanza de vida es menor al promedio global.
 SELECT Name
 FROM Country
@@ -123,6 +135,7 @@ WHERE LifeExpectancy < (
 ![](./imagenes/numero12.png?raw=true)
 consulta #13
 ```sql
+πCountry.Code(σContinent=′Asia′(Country))−πCountryCode(σIsOfficial=′T′(CountryLanguage))
 #Encuentra los países en Asia sin idioma oficial registrado.
 SELECT c.Code
 FROM Country c
@@ -136,6 +149,7 @@ AND c.Code NOT IN (
 ![](./imagenes/numero13.png?raw=true)
 consulta #14
 ```sql
+πLanguage(σCountry.LifeExpectancy>80(Country⋈CountryLanguage))
 #Lista los idiomas que son oficiales en países con esperanza de vida mayor a 80.
 SELECT DISTINCT cl.Language
 FROM Country c
@@ -145,6 +159,7 @@ WHERE c.LifeExpectancy > 80 AND cl.IsOfficial = 'T';
 ![](./imagenes/numero14.png?raw=true)
 consulta #15
 ```sql
+πCountryCode(City GROUP BY CountryCode HAVING COUNT(*) > 10)
 #Encuentra los países con más de 10 ciudades en la tabla City.
 SELECT CountryCode
 FROM City
@@ -154,6 +169,7 @@ HAVING COUNT(*) > 10;
 ![](./imagenes/numero15.png?raw=true)
 consulta #16
 ```sql
+
 #Qué países tienen una población mayor a 50 millones
 SELECT Name 
 FROM Country 
